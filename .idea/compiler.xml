@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="CompilerConfiguration">
+    <annotationProcessing>
+      <profile name="Maven default annotation processors profile" enabled="true">
+        <sourceOutputDir name="target/generated-sources/annotations" />
+        <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
+        <outputRelativeToContentRoot value="true" />
+        <module name="xdclass-vidio-service" />
+        <module name="xdclass-order-service" />
+        <module name="xdclass-user-service" />
+        <module name="xdclass-common" />
+        <module name="xdclass-video-service1" />
+        <module name="xdclass-gateway" />
+      </profile>
+    </annotationProcessing>
+    <bytecodeTargetLevel target="1.8">
+      <module name="xdclass-cloud" target="1.8" />
+      <module name="xdclass-common" target="1.8" />
+      <module name="xdclass-gateway" target="8" />
+      <module name="xdclass-order-service" target="8" />
+      <module name="xdclass-user-service" target="1.8" />
+      <module name="xdclass-video-service" target="8" />
+      <module name="xdclass-video-service1" target="8" />
+      <module name="xdclass-vidio-service" target="1.5" />
+    </bytecodeTargetLevel>
+  </component>
+</project>

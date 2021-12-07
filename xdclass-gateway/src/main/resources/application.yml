@@ -1,0 +1,18 @@
+server:
+  port: 9090
+
+spring:
+  application:
+    name: xdclass-gateway
+  cloud:
+    nacos:
+      discovery:
+        server-addr: 172.16.20.102:8848
+    gateway:
+      routes:
+        - id: xdclass-order-service
+          uri: lb://xdclass-order-service
+          predicates:
+            - Path=/xdclass-order-service/**
+          filters:
+            - StripPrefix=1

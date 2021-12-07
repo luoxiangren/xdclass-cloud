@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="xdclass.mapper.SportMapper">
+
+    <select id="getSportTotDistAndDur"  resultType="java.util.HashMap">
+        select aa.month_stat,bb.sportType_name,aa.tot_totalDistance,aa.tot_duration
+        from
+        (
+        select month_stat,
+        sportType,
+        sum(totalDistance) as tot_totalDistance,
+        sum(duration) as tot_duration
+        from (
+        select substr(Pdate, 1, 6) as month_stat, sportType, totalDistance,duration
+        from haylou_datawares.dwd_sport_usr_motion_dt_dfs
+        where Pdate &lt; toString(toYYYYMMDD(toStartOfMonth(now())))
+        and Pdate &gt;= toString(toYYYYMMDD(toStartOfMonth(addMonths(now(), -6))))
+        ) a
+        group by a.month_stat, sportType
+        ) aa
+        left join
+        haylou_datawares.dim_sportType_info_dfs bb
+        on (aa.sportType = bb.sportType)
+        order by aa.month_stat,bb.sportType_name asc
+    </select>
+
+
+    <select id="getTotSteps"  resultType="java.util.HashMap">
+        select month_stat,
+        '步数'            as stat_type,
+        sum(totalSteps) as totalSteps
+        from (
+        select substr(Pdate, 1, 6) as month_stat, sportType, totalSteps
+        from haylou_datawares.dwd_sport_usr_motion_dt_dfs
+        where Pdate &lt; toString(toYYYYMMDD(toStartOfMonth(now())))
+        and Pdate &gt;= toString(toYYYYMMDD(toStartOfMonth(addMonths(now(), -6))))
+        ) a
+        group by a.month_stat
+    </select>
+
+    <select id="getTotKcal"  resultType="java.util.HashMap">
+        select month_stat,
+        '卡路里'          as stat_type,
+        sum(totalKcal) as totalKcal
+        from (
+        select substr(Pdate, 1, 6) as month_stat, sportType, totalKcal
+        from haylou_datawares.dwd_sport_usr_motion_dt_dfs
+        where Pdate &lt; toString(toYYYYMMDD(toStartOfMonth(now())))
+        and Pdate &gt;= toString(toYYYYMMDD(toStartOfMonth(addMonths(now(), -6))))
+        ) a
+        group by a.month_stat
+    </select>
+
+    <select id="getSportTotCnt"  resultType="java.util.HashMap">
+        select aa.month_stat,bb.sportType_name,aa.cnt
+        from
+        (
+        select month_stat,
+        sportType,
+        count() as cnt
+        from (
+        select substr(Pdate, 1, 6) as month_stat, sportType, totalDistance,duration
+        from haylou_datawares.dwd_sport_usr_motion_dt_dfs
+        where Pdate &lt; toString(toYYYYMMDD(toStartOfMonth(now())))
+        and Pdate &gt;= toString(toYYYYMMDD(toStartOfMonth(addMonths(now(), -6))))
+        ) a
+        group by a.month_stat, sportType
+        ) aa
+        left join
+        haylou_datawares.dim_sportType_info_dfs bb
+        on (aa.sportType = bb.sportType)
+        order by aa.month_stat,bb.sportType_name asc
+    </select>
+
+
+</mapper>

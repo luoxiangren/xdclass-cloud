@@ -1,0 +1,32 @@
+server:
+  port: 8000
+
+spring:
+  application:
+    name: xdclass-order-service
+  cloud:
+    nacos:
+      discovery:
+        server-addr: 172.16.20.102:8848
+    sentinel:
+      transport:
+        dashboard: 172.16.20.102:8858
+        port: 8719
+        clientIp: 172.16.21.198
+      eager: true
+  datasource:
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    url: jdbc:mysql://120.78.93.174:3306/appTest?useUnicode=true&characterEncoding=UTF-8&serverTimezone=UTC
+    username: root
+    password: 123456
+  zipkin:
+    base-url: http://172.16.20.102:9411
+
+mybatis:
+  configuration:
+    log-impl: org.apache.ibatis.logging.stdout.StdOutImpl
+    map-underscore-to-camel-case: true
+
+feign:
+  sentinel:
+    enabled: true

@@ -1,0 +1,10 @@
+spring:
+  application:
+    name: xdclass-video-service
+  cloud:
+    nacos:
+      config:
+        server-addr: 172.16.20.102:8848
+        file-extension: yml
+  profiles:
+    active: dev
